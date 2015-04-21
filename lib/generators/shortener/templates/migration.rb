@@ -22,5 +22,17 @@ class CreateShortenedUrlsTable < ActiveRecord::Migration
     add_index :shortened_urls, :unique_key, :unique => true
     add_index :shortened_urls, :url
     add_index :shortened_urls, [:owner_id, :owner_type]
+
+    create_table :metrics do |t|
+      # we link this to a shortened_url ro collect the metrics
+      t.integer :shortened_url_id
+
+      # the two-letter code of the referring country
+      t.string :country, default: "None"
+
+      t.timestamps
+    end
+
+    add_index :metrics, :shortened_url_id
   end
 end

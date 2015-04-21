@@ -8,6 +8,8 @@ class Shortener::ShortenedUrl < ActiveRecord::Base
   # allows the shortened link to be associated with a user
   belongs_to :owner, :polymorphic => true
 
+  has_many :metrics
+
   # ensure the url starts with it protocol and is normalized
   def self.clean_url(url)
     return nil if url.blank?

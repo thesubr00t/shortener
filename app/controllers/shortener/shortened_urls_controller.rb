@@ -14,7 +14,10 @@ class Shortener::ShortenedUrlsController < ActionController::Base
       # for the system. You could log the request origin
       # browser type, ip address etc.
       Thread.new do
-        sl.increment!(:use_count)
+        # Get request location by Geocoding the request IP
+        country = request.location.country_code
+        metric  = sl.metrics.build(country: country)
+        metric.save
         ActiveRecord::Base.connection.close
       end
       # do a 301 redirect to the destination url

@@ -27,3 +27,5 @@ end
 # Require our railtie and engine
 require "shortener/railtie"
 require "shortener/engine"
+
+require "geocoder"
